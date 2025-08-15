@@ -4,9 +4,12 @@
   "type": "module",
   "private": true,
   "workspaces": [
-    "apps/*"
+    "apps/*",
+    "libs/*"
   ],
   "scripts": {
+    "all:build": "nx run-many -t build",
+    "db:start": "nx run @ivalo/db:db:migrate",
     "portal:dev": "nx run @ivalo/portal:dev"
   },
   "devDependencies": {
@@ -16,11 +19,19 @@
     "@swc/cli": "~0.6.0",
     "@swc/core": "~1.5.7",
     "@swc/helpers": "~0.5.11",
+    "@types/pg": "^8.15.5",
+    "drizzle-kit": "^0.31.4",
     "nx": "21.3.11",
+    "ts-node": "^10.9.2",
     "typescript": "~5.8.2"
   },
   "packageManager": "yarn@4.9.1",
   "engines": {
     "node": ">=22.14.0"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.55.0",
+    "drizzle-orm": "^0.44.4",
+    "postgres": "^3.4.7"
   }
 }

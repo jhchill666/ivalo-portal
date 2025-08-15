@@ -1,0 +1,15 @@
+{
+  "name": "@ivalo/tsconfig",
+  "version": "1.0.0",
+  "type": "module",
+  "private": true,
+  "exports": {
+    ".": {
+      "default": "./strictest.json"
+    },
+    "./next": "./next.json",
+    "./node": "./node.json",
+    "./node-library": "./node-library.json",
+    "./strictest": "./strictest.json"
+  }
+}

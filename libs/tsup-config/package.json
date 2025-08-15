@@ -1,0 +1,18 @@
+{
+  "name": "@ivalo/tsup-config",
+  "version": "0.0.0",
+  "type": "module",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "private": true,
+  "dependencies": {
+    "@esbuild-plugins/tsconfig-paths": "^0.1.2",
+    "tsup": "^8.4.0"
+  },
+  "peerDependencies": {
+    "tsup": "^8.4.0"
+  },
+  "devDependencies": {
+    "@microsoft/api-extractor": "^7.52.8"
+  }
+}

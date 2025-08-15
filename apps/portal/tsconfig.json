@@ -1,30 +1,5 @@
 {
-  "extends": "../../tsconfig.base.json",
-  "compilerOptions": {
-    "jsx": "preserve",
-    "noEmit": true,
-    "emitDeclarationOnly": false,
-    "esModuleInterop": true,
-    "module": "esnext",
-    "moduleResolution": "bundler",
-    "resolveJsonModule": true,
-    "lib": ["dom", "dom.iterable", "esnext"],
-    "allowJs": true,
-    "allowSyntheticDefaultImports": true,
-    "forceConsistentCasingInFileNames": true,
-    "incremental": true,
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ],
-    "paths": {
-      "@/*": ["./src/*"]
-    },
-    "outDir": "dist",
-    "rootDir": "src",
-    "tsBuildInfoFile": "dist/tsconfig.tsbuildinfo"
-  },
+  "extends": "@ivalo/tsconfig/next",
   "include": [
     "../../apps/portal/.next/types/**/*.ts",
     "../../dist/apps/portal/.next/types/**/*.ts",
@@ -33,5 +8,15 @@
     "src/**/*.tsx",
     ".next/types/**/*.ts"
   ],
-  "exclude": ["out-tsc", "dist", "node_modules", ".next"]
+  "exclude": [
+    "out-tsc",
+    "dist",
+    "node_modules",
+    ".next"
+  ],
+  "compilerOptions": {
+    "target": "ES2017",
+    "allowJs": true,
+    "incremental": true
+  }
 }

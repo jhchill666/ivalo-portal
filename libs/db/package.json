@@ -1,0 +1,27 @@
+{
+  "name": "@ivalo/db",
+  "version": "1.0.0",
+  "type": "module",
+  "private": true,
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "scripts": {
+    "build": "tsup",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "db:push": "NODE_OPTIONS=\"--loader ts-node/esm\" drizzle-kit push --config drizzle.config.ts",
+    "db:studio": "drizzle-kit studio"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.55.0",
+    "drizzle-orm": "^0.44.4",
+    "zod": "^4.0.17"
+  },
+  "devDependencies": {
+    "@ivalo/tsconfig": "workspace:*",
+    "@ivalo/tsup-config": "workspace:*",
+    "@types/pg": "^8.15.5",
+    "drizzle-kit": "^0.31.4",
+    "tsup": "^8.5.0"
+  }
+}
