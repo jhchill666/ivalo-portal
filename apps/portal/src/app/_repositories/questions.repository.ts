@@ -5,7 +5,7 @@ export class QuestionsRepository {
 
   async getQuestions(): Promise<QuestionCategoryWithQuestions[]> {
     try {
-      const result = await this.db.query.questionCategories.findMany({
+      const results = await this.db.query.questionCategories.findMany({
         orderBy: (categories, { asc }) => [asc(categories.code)],
         columns: {
           id: true,
@@ -18,7 +18,7 @@ export class QuestionsRepository {
       });
 
       console.debug("Questions loaded successfully.");
-      return result;
+      return results;
     } catch (err: unknown) {
       console.error(
         {

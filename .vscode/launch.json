@@ -1,0 +1,28 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "NextJS - ServerSide",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "yarn portal:dev"
+    },
+    {
+      "name": "NextJS - ClientSide",
+      "type": "chrome",
+      "request": "launch",
+      "url": "http://localhost:3000"
+    },
+    {
+      "name": "NextJS: FullStack",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "yarn portal:dev",
+      "serverReadyAction": {
+        "pattern": "started server on .+, url: (https?://.+)",
+        "uriFormat": "%s",
+        "action": "debugWithChrome"
+      }
+    }
+  ]
+}

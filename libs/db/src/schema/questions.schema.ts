@@ -7,20 +7,24 @@ import {
   varchar,
 } from "drizzle-orm/pg-core";
 
-// 1) Categories
+/**
+ * Question Categories
+ */
 export const questionCategories = table("question_categories", {
   id: serial("id").primaryKey(),
   code: varchar("code", { length: 16 }).notNull(),
   title: text("title").notNull(),
 });
 
-// 2) Questions
+/**
+ * Questions
+ */
 export const questions = table("questions", {
-  id: serial("id").primaryKey(),
+  id: serial("id").primaryKey().unique(),
   code: varchar("code", { length: 32 }).notNull(),
   categoryId: integer("category_id")
-    .notNull()
-    .references(() => questionCategories.id, { onDelete: "cascade" }),
+  .notNull()
+  .references(() => questionCategories.id, { onDelete: "cascade" }),
   text: text("text").notNull(),
   scoreMin: integer("score_min").notNull().default(0),
   scoreMax: integer("score_max").notNull().default(0),

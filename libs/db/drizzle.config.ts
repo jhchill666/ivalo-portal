@@ -8,7 +8,10 @@ export const env = z
 export default defineConfig({
   out: "./src/migrations",
   dialect: "postgresql",
-  schema: ["./src/schema/questions.schema.ts"],
+  schema: [
+    "./src/schema/company.schema.ts",
+    "./src/schema/questions.schema.ts",
+  ],
 
   dbCredentials: {
     url: env.DB_CONNECTION_STRING,

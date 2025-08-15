@@ -28,7 +28,7 @@ export default async function PromptsPage() {
                 </div>
 
                 <div className="divide-y divide-gray-100">
-                  {category.questions.map((question) => (
+                  {category.questions?.map((question) => (
                     <div key={question.id} className="px-6 py-4">
                       <div className="flex items-start justify-between">
                         <div className="flex-1">
