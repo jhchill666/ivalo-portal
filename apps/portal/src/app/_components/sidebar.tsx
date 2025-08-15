@@ -1,6 +1,6 @@
 "use client";
 
-import { PanelLeft, SquareChevronRight } from "lucide-react";
+import { ListCheck, PanelLeft, SquareChevronRight } from "lucide-react";
 import { useState } from "react";
 
 const COLLAPSED_WIDTH = "w-14";
@@ -37,6 +37,7 @@ export function Sidebar() {
           <PanelLeft className="text-gray-900 w-6 h-6" />
         </button>
       </div>
+
       <nav
         className={`mt-4 px-2 flex-grow transition-opacity duration-300 ease-in-out ${
           open
@@ -44,6 +45,13 @@ export function Sidebar() {
             : "opacity-0 pointer-events-none"
         }`}
       >
+        <a
+          href="/prompts"
+          className="flex items-center px-4 py-2 text-gray-900 hover:bg-gray-100 rounded cursor-pointer"
+        >
+          <ListCheck className="w-5 h-5 mr-3 text-gray-500" />
+          <span className="text-sm font-medium truncate">Results</span>
+        </a>
         <a
           href="/prompts"
           className="flex items-center px-4 py-2 text-gray-900 hover:bg-gray-100 rounded cursor-pointer"
