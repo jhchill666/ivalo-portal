@@ -1,21 +1,26 @@
 {
   "name": "ivalo-demo",
-  "version": "0.0.0",
-  "license": "MIT",
-  "scripts": {},
+  "version": "1.0.0",
+  "type": "module",
   "private": true,
-  "dependencies": {},
+  "workspaces": [
+    "apps/*"
+  ],
   "devDependencies": {
     "@nx/js": "21.3.11",
+    "@nx/next": "^21.3.11",
     "@swc-node/register": "~1.9.1",
+    "@swc/cli": "~0.6.0",
     "@swc/core": "~1.5.7",
     "@swc/helpers": "~0.5.11",
     "nx": "21.3.11",
-    "prettier": "^2.6.2",
-    "tslib": "^2.3.0",
     "typescript": "~5.8.2"
   },
-  "workspaces": [
-    "apps/*"
-  ]
+  "packageManager": "yarn@4.9.1",
+  "engines": {
+    "node": ">=22.14.0"
+  },
+  "dependencies": {
+    "daisyui": "^5.0.50"
+  }
 }
