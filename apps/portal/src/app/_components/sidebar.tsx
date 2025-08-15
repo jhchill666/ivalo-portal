@@ -1,13 +1,17 @@
 "use client";
 
-import { ListCheck, PanelLeft, SquareChevronRight } from "lucide-react";
+import { PanelLeft } from "lucide-react";
+import { usePathname } from "next/navigation.js";
 import { useState } from "react";
+import { pages } from "../_store/app-store.js";
 
 const COLLAPSED_WIDTH = "w-14";
 const EXPANDED_WIDTH = "w-64";
 
 export function Sidebar() {
   const [open, setOpen] = useState(false);
+
+  const pathname = usePathname();
 
   return (
     <aside
@@ -40,25 +44,29 @@ export function Sidebar() {
 
       <nav
         className={`mt-4 px-2 grow transition-opacity duration-300 ease-in-out ${
-          open
-            ? "opacity-100 pointer-events-auto"
-            : "opacity-0 pointer-events-none"
+          open ? "px-2" : "px-1"
         }`}
       >
-        <a
-          href="/prompts"
-          className="flex items-center px-4 py-2 text-gray-900 hover:bg-gray-100 rounded-sm cursor-pointer"
-        >
-          <ListCheck className="w-5 h-5 mr-3 text-gray-500" />
-          <span className="text-sm font-medium truncate">Results</span>
-        </a>
-        <a
-          href="/prompts"
-          className="flex items-center px-4 py-2 text-gray-900 hover:bg-gray-100 rounded-sm cursor-pointer"
-        >
-          <SquareChevronRight className="w-5 h-5 mr-3 text-gray-500" />
-          <span className="text-sm font-medium truncate">Prompt Explorer</span>
-        </a>
+        {pages.map(({ route, title, Icon }) => (
+          <a
+            key={route}
+            href={route}
+            className={`flex items-center py-2 text-gray-900 hover:bg-gray-100 rounded-sm cursor-pointer mb-2 ${
+              open ? "px-4" : "px-2 justify-center"
+            } ${
+              pathname === route ? "bg-blue-50 border-l-2 border-blue-500" : ""
+            }`}
+          >
+            <Icon className="w-5 h-5 text-gray-500" />
+            <span
+              className={`text-sm font-medium truncate transition-opacity duration-300 ease-in-out ${
+                open ? "opacity-100 ml-3" : "opacity-0 w-0 ml-0"
+              }`}
+            >
+              {title}
+            </span>
+          </a>
+        ))}
       </nav>
     </aside>
   );

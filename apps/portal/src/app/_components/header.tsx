@@ -1,11 +1,12 @@
 import { Github } from "lucide-react";
+import HeaderTitle from "./header-title.js";
 
 export function Header() {
   return (
     <header className="h-14 bg-white flex items-center px-4 border-b border-gray-200 shrink-0">
       <div className="flex-1">
         <span className="text-gray-600 font-semibold text-lg tracking-wide">
-          PROMPT EXPLORER
+          <HeaderTitle />
         </span>
       </div>
       <div className="flex items-center space-x-4">

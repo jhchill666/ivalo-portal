@@ -1725,6 +1725,7 @@ __metadata:
     react: "npm:19.0.0"
     react-dom: "npm:19.0.0"
     tailwindcss: "npm:^4.1.12"
+    valtio: "npm:^2.1.5"
   languageName: unknown
   linkType: soft
 
@@ -10025,6 +10026,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"proxy-compare@npm:^3.0.1":
+  version: 3.0.1
+  resolution: "proxy-compare@npm:3.0.1"
+  checksum: 10c0/1e3631ef32603d4de263860ce02d84b48384dce9b62238b2148b3c58a4e4ec5b06644615dcc196a339f73b9695443317099d55a9173e02ce8492088c9330c00b
+  languageName: node
+  linkType: hard
+
 "proxy-from-env@npm:^1.1.0":
   version: 1.1.0
   resolution: "proxy-from-env@npm:1.1.0"
@@ -11952,6 +11960,23 @@ __metadata:
   version: 5.0.1
   resolution: "validate-npm-package-name@npm:5.0.1"
   checksum: 10c0/903e738f7387404bb72f7ac34e45d7010c877abd2803dc2d614612527927a40a6d024420033132e667b1bade94544b8a1f65c9431a4eb30d0ce0d80093cd1f74
+  languageName: node
+  linkType: hard
+
+"valtio@npm:^2.1.5":
+  version: 2.1.5
+  resolution: "valtio@npm:2.1.5"
+  dependencies:
+    proxy-compare: "npm:^3.0.1"
+  peerDependencies:
+    "@types/react": ">=18.0.0"
+    react: ">=18.0.0"
+  peerDependenciesMeta:
+    "@types/react":
+      optional: true
+    react:
+      optional: true
+  checksum: 10c0/66bc5027b28af7611c66bf4839860e548c3657d086fa1a76992d07a45d83c5fbe42a351332fe3cf1ef79e34706d4c550dc1a038a3b00933dad1e34f4000009ee
   languageName: node
   linkType: hard
 

@@ -3,7 +3,7 @@ export default function Index() {
     <>
       <div className="min-h-screen">
         <div className="max-w-7xl mx-auto ">
-          <div className="bg-white rounded-lg overflow-hidden">Root Page</div>
+          <div className="bg-white rounded-lg overflow-hidden">Prompts</div>
         </div>
       </div>
     </>
