@@ -16,7 +16,7 @@ export function Sidebar() {
       }`}
     >
       <div
-        className={`h-14 flex-shrink-0 flex items-center px-3 ${
+        className={`h-14 shrink-0 flex items-center px-3 ${
           open ? "justify-between" : "justify-center"
         }`}
       >
@@ -31,15 +31,15 @@ export function Sidebar() {
         </span>
         <button
           onClick={() => setOpen(!open)}
-          className="p-2 rounded hover:bg-gray-100 focus:outline-none"
+          className="p-2 rounded-sm hover:bg-gray-100 focus:outline-hidden"
           aria-label="Toggle sidebar"
         >
-          <PanelLeft className="text-gray-900 w-6 h-6" />
+          <PanelLeft className="text-gray-600 w-4 h-4 cursor-pointer" />
         </button>
       </div>
 
       <nav
-        className={`mt-4 px-2 flex-grow transition-opacity duration-300 ease-in-out ${
+        className={`mt-4 px-2 grow transition-opacity duration-300 ease-in-out ${
           open
             ? "opacity-100 pointer-events-auto"
             : "opacity-0 pointer-events-none"
@@ -47,14 +47,14 @@ export function Sidebar() {
       >
         <a
           href="/prompts"
-          className="flex items-center px-4 py-2 text-gray-900 hover:bg-gray-100 rounded cursor-pointer"
+          className="flex items-center px-4 py-2 text-gray-900 hover:bg-gray-100 rounded-sm cursor-pointer"
         >
           <ListCheck className="w-5 h-5 mr-3 text-gray-500" />
           <span className="text-sm font-medium truncate">Results</span>
         </a>
         <a
           href="/prompts"
-          className="flex items-center px-4 py-2 text-gray-900 hover:bg-gray-100 rounded cursor-pointer"
+          className="flex items-center px-4 py-2 text-gray-900 hover:bg-gray-100 rounded-sm cursor-pointer"
         >
           <SquareChevronRight className="w-5 h-5 mr-3 text-gray-500" />
           <span className="text-sm font-medium truncate">Prompt Explorer</span>

@@ -22,8 +22,5 @@
   "packageManager": "yarn@4.9.1",
   "engines": {
     "node": ">=22.14.0"
-  },
-  "dependencies": {
-    "daisyui": "^5.0.50"
   }
 }

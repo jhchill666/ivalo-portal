@@ -1,8 +1,8 @@
 import { League_Spartan } from "next/font/google";
-import { Sidebar } from "./_components/sidebar.jsx";
 import { Header } from "./_components/header.jsx";
+import { Sidebar } from "./_components/sidebar.jsx";
 
-import "./global.css";
+import "./_theme/global.css";
 
 const leagueSpartan = League_Spartan({
   weight: ["700", "800"],
