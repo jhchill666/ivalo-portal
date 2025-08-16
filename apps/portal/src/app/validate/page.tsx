@@ -2,6 +2,8 @@ import { connectDb } from "@ivalo/db";
 import { QuestionsRepository } from "../_repositories/questions.repository.js";
 import { Questions } from "./_components/questions.jsx";
 
+export const dynamic = "force-dynamic";
+
 export default async function Index() {
   const { db } = await connectDb();
 

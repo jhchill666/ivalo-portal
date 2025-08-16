@@ -14,7 +14,8 @@
     "format:fix": "biome check --write",
     "portal:dev": "nx run @ivalo/portal:dev",
     "portal:build": "nx run @ivalo/portal:build",
-    "portal:start": "nx run @ivalo/portal:start"
+    "portal:start": "nx run @ivalo/portal:start",
+    "portal:studio": "nx db:studio @ivalo/db"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.2.0",

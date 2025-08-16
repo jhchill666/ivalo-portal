@@ -1,6 +1,8 @@
 import { connectDb } from "@ivalo/db";
 import { CompanyRepository } from "./_repositories/company.repository";
 
+export const dynamic = "force-dynamic";
+
 export default async function Index() {
   const { db } = await connectDb();
   const companyRepo = new CompanyRepository(db);

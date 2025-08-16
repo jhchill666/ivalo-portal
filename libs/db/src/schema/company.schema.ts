@@ -7,7 +7,7 @@ import {
   text,
   varchar,
 } from "drizzle-orm/pg-core";
-import { questions } from "./questions.schema.js";
+import { questions } from "./questions.schema.ts";
 
 export const priorityEnum = pgEnum("priority", ["LOW", "MEDIUM", "HIGH"]);
 export const requirementEnum = pgEnum("requirement", ["Minimum", "Maximum"]);

@@ -1,6 +1,8 @@
 import { connectDb } from "@ivalo/db";
 import { QuestionsRepository } from "../_repositories/questions.repository";
 
+export const dynamic = "force-dynamic";
+
 export default async function PromptsPage() {
   const { db } = await connectDb();
   const questionsRepo = new QuestionsRepository(db);

@@ -11,7 +11,7 @@
     "db:migrate": "drizzle-kit migrate",
     "db:push": "NODE_OPTIONS=\"--loader ts-node/esm\" drizzle-kit push --config drizzle.config.ts",
     "db:seed": "tsx --env-file=./.env src/seeds/index.ts",
-    "db:studio": "drizzle-kit studio"
+    "db:studio": "drizzle-kit studio --port=4000 --config drizzle.config.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.55.0",
