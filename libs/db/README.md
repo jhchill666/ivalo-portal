@@ -2,6 +2,11 @@
 
 Shared database package for the Ivalo monorepo using Supabase and Drizzle ORM.
 
+```
+yarn nx db:push @ivalo/db
+yarn nx db:seed @ivalo/db
+```
+
 ## Setup
 
 1. **Environment Variables**

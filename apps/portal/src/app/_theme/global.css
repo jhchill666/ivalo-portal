@@ -9,3 +9,30 @@
 .rounded {
   border-radius: 1.5rem;
 }
+
+/* Font family utilities */
+.font-display {
+  font-family: var(--font-display), ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Page background color variables from 360 RETAIL screenshots */
+:root {
+  --blob-colour: #f0ecdb; /* Default: light yellow */
+}
+
+/* Specific page background colors */
+.blob-salmon {
+  --blob-colour: #ffe6e0; /* Main/Overview pages - light yellow */
+}
+
+.blob-yellow {
+  --blob-colour: #fffdbd; /* Portfolio Management - light pink */
+}
+
+.blob-green {
+  --blob-colour: #dcf8b8; /* Data & Analytics - light green */
+}
+
+.blob-cream {
+  --blob-colour: #fef3c7; /* Challenge/Problem pages - warmer yellow */
+}

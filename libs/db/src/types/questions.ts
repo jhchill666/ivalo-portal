@@ -1,11 +1,18 @@
-import { InferSelectModel } from "drizzle-orm";
-import { questionCategories, questions } from "../schema/questions.schema.js";
+import { InferInsertModel, InferSelectModel } from "drizzle-orm";
+import {
+  questionCategories,
+  questionOptions,
+  questions,
+} from "../schema/questions.schema.js";
 
-// Base table types
 export type QuestionCategory = InferSelectModel<typeof questionCategories>;
-export type Question = InferSelectModel<typeof questions>;
 
-// Nested return type
+export type Question = InferSelectModel<typeof questions>;
+export type QuestionWithOptions = Question & { options: QuestionOption[] };
+
+export type QuestionOption = InferSelectModel<typeof questionOptions>;
+export type NewQuestionOption = InferInsertModel<typeof questionOptions>;
+
 export type QuestionCategoryWithQuestions = QuestionCategory & {
-  questions: Question[];
+  questions: QuestionWithOptions[];
 };

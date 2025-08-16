@@ -1,23 +1,31 @@
 import {
   companies,
-  companyAnswers,
-  companyRelations,
-  companyAnswerRelations
+  companiesRelations,
+  companyQuestionScores,
+  companyQuestionScoresRelations,
+  questionScoring,
+  questionScoringRelations,
 } from "./company.schema.js";
 import {
   questionCategories,
-  questions,
   questionCategoriesRelations,
-  questionsRelations
+  questionOptions,
+  questionOptionsRelations,
+  questions,
+  questionsRelations,
 } from "./questions.schema.js";
 
 export const schema = {
   companies,
-  companyAnswers,
+  companiesRelations,
+  companyQuestionScores,
+  companyQuestionScoresRelations,
+  questionScoringRelations,
+  questionScoring,
   questionCategories,
   questions,
-  companyRelations,
-  companyAnswerRelations,
+  questionOptions,
   questionCategoriesRelations,
   questionsRelations,
+  questionOptionsRelations,
 };

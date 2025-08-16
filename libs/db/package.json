@@ -10,11 +10,13 @@
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
     "db:push": "NODE_OPTIONS=\"--loader ts-node/esm\" drizzle-kit push --config drizzle.config.ts",
+    "db:seed": "tsx --env-file=./.env src/seeds/index.ts",
     "db:studio": "drizzle-kit studio"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.55.0",
     "drizzle-orm": "^0.44.4",
+    "drizzle-zod": "^0.8.3",
     "zod": "^4.0.17"
   },
   "devDependencies": {
@@ -22,6 +24,7 @@
     "@ivalo/tsup-config": "workspace:*",
     "@types/pg": "^8.15.5",
     "drizzle-kit": "^0.31.4",
-    "tsup": "^8.5.0"
+    "tsup": "^8.5.0",
+    "tsx": "^4.20.4"
   }
 }

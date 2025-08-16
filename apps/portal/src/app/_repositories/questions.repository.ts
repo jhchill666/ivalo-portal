@@ -1,19 +1,43 @@
-import { DrizzleDatabase, QuestionCategoryWithQuestions } from "@ivalo/db";
+import {
+  DrizzleDatabase,
+  QuestionCategory,
+  QuestionCategoryWithQuestions,
+} from "@ivalo/db";
 
 export class QuestionsRepository {
   constructor(private readonly db: DrizzleDatabase) {}
+
+  async getCategories(): Promise<QuestionCategory[]> {
+    try {
+      const results = await this.db.query.questionCategories.findMany();
+
+      return results;
+    } catch (err: unknown) {
+      console.error(
+        {
+          err,
+          errorMessage: (err as { message: string })?.message,
+        },
+        "Failed to load questions."
+      );
+      throw err;
+    }
+  }
 
   async getQuestions(): Promise<QuestionCategoryWithQuestions[]> {
     try {
       const results = await this.db.query.questionCategories.findMany({
         orderBy: (categories, { asc }) => [asc(categories.code)],
         columns: {
-          id: true,
           code: true,
-          title: true,
+          text: true,
         },
         with: {
-          questions: true,
+          questions: {
+            with: {
+              options: true,
+            },
+          },
         },
       });
 

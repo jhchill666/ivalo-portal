@@ -9,36 +9,36 @@ export default async function PromptsPage() {
     const categoriesWithQuestions = await questionsRepo.getQuestions();
 
     return (
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen">
         <div className="max-w-7xl mx-auto py-8 px-4">
-          <h1 className="text-3xl font-bold text-gray-900 mb-8">
-            Assessment Questions
+          <h1 className="text-3xl font-bold text-gray-900 mb-8 font-display uppercase">
+            Validation Questionnaire
           </h1>
 
           <div className="space-y-6">
             {categoriesWithQuestions.map((category) => (
               <div
-                key={category.id}
-                className="bg-white rounded-lg shadow-sm border border-gray-200"
+                key={category.code}
+                className="bg-white/[0.80] rounded-lg shadow-sm border border-gray-200"
               >
                 <div className="px-6 py-4 border-b border-gray-200">
-                  <h2 className="text-xl font-semibold text-gray-900">
-                    {category.code} {category.title}
+                  <h2 className="text-xl font-semibold text-gray-900 font-display">
+                    {category.code} {category.text}
                   </h2>
                 </div>
 
                 <div className="divide-y divide-gray-100">
                   {category.questions?.map((question) => (
-                    <div key={question.id} className="px-6 py-4">
+                    <div key={question.code} className="px-6 py-4">
                       <div className="flex items-start justify-between">
                         <div className="flex-1">
                           <h3 className="text-lg font-medium text-gray-900 mb-2">
                             {question.code} {question.text}
                           </h3>
-                          <div className="text-sm text-gray-600 mt-1">
-                            Score range: {question.scoreMin} -{" "}
-                            {question.scoreMax}
-                          </div>
+                          {/* <div className="text-sm text-gray-600 mt-1">
+                            Score range: {question.maxPoints} -{" "}
+                            {question.maxPoints}
+                          </div> */}
                         </div>
                       </div>
                     </div>

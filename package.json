@@ -10,9 +10,14 @@
   "scripts": {
     "all:build": "nx run-many -t build",
     "db:start": "nx run @ivalo/db:db:migrate",
-    "portal:dev": "nx run @ivalo/portal:dev"
+    "format": "biome check",
+    "format:fix": "biome check --write",
+    "portal:dev": "nx run @ivalo/portal:dev",
+    "portal:build": "nx run @ivalo/portal:build",
+    "portal:start": "nx run @ivalo/portal:start"
   },
   "devDependencies": {
+    "@biomejs/biome": "^2.2.0",
     "@nx/js": "21.3.11",
     "@nx/next": "^21.3.11",
     "@swc-node/register": "~1.9.1",

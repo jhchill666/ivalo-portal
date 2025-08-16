@@ -3,11 +3,10 @@ import HeaderTitle from "./header-title.js";
 
 export function Header() {
   return (
-    <header className="h-14 bg-white flex items-center px-4 border-b border-gray-200 shrink-0">
+    <header className="h-14 bg-white flex items-center px-4 border-b border-gray-200 shrink-0 relative z-50">
+      <img src="/images/360.png" alt="360" className="h-8 w-auto mr-3" />
       <div className="flex-1">
-        <span className="text-gray-600 font-semibold text-lg tracking-wide">
-          <HeaderTitle />
-        </span>
+        <HeaderTitle />
       </div>
       <div className="flex items-center space-x-4">
         <a

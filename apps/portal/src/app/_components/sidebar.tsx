@@ -3,7 +3,7 @@
 import { PanelLeft } from "lucide-react";
 import { usePathname } from "next/navigation.js";
 import { useState } from "react";
-import { pages } from "../_store/app-store.js";
+import { pages } from "../_store/app.state.js";
 
 const COLLAPSED_WIDTH = "w-14";
 const EXPANDED_WIDTH = "w-64";
@@ -38,7 +38,7 @@ export function Sidebar() {
           className="p-2 rounded-sm hover:bg-gray-100 focus:outline-hidden"
           aria-label="Toggle sidebar"
         >
-          <PanelLeft className="text-gray-600 w-4 h-4 cursor-pointer" />
+          <PanelLeft className="text-gray-600 w-5 h-5 cursor-pointer" />
         </button>
       </div>
 
@@ -51,11 +51,12 @@ export function Sidebar() {
           <a
             key={route}
             href={route}
-            className={`flex items-center py-2 text-gray-900 hover:bg-gray-100 rounded-sm cursor-pointer mb-2 ${
+            className={`flex tooltip items-center py-2 text-gray-900 hover:bg-gray-100 rounded-sm cursor-pointer mb-2 ${
               open ? "px-4" : "px-2 justify-center"
             } ${
               pathname === route ? "bg-blue-50 border-l-2 border-blue-500" : ""
             }`}
+            data-tip={title}
           >
             <Icon className="w-5 h-5 text-gray-500" />
             <span

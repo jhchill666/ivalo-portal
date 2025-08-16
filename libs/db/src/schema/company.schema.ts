@@ -1,79 +1,95 @@
-import { relations, sql } from "drizzle-orm";
+import { relations } from "drizzle-orm";
 import {
-  index,
-  integer,
-  numeric,
+  doublePrecision,
+  pgEnum,
+  pgTable,
   primaryKey,
-  pgTable as table,
   text,
-  timestamp,
-  uuid,
+  varchar,
 } from "drizzle-orm/pg-core";
 import { questions } from "./questions.schema.js";
 
-/**
- * Companies
- * - tulosPoints = 360 score points total (sum of per-question points)
- * - tulosPercent = (tulosPoints / MAX_TOTAL) * 100  (you computed MAX_TOTAL=119)
- */
-export const companies = table(
-  "companies",
-  {
-    id: uuid("id").defaultRandom().primaryKey(),
-    name: text("name").notNull().unique(),
-    tulosPoints: numeric("tulos_points", { precision: 10, scale: 2 }).notNull(),
-    tulosPercent: numeric("tulos_percent", {
-      precision: 6,
-      scale: 2,
-    }).notNull(),
-    createdAt: timestamp("created_at", { withTimezone: true })
-      .notNull()
-      .default(sql`now()`),
-  },
-  (t) => [index("companies_name_idx").on(t.name)]
-);
+export const priorityEnum = pgEnum("priority", ["LOW", "MEDIUM", "HIGH"]);
+export const requirementEnum = pgEnum("requirement", ["Minimum", "Maximum"]);
 
-/**
- * Company answers (one row per company per question)
- */
-export const companyAnswers = table(
-  "company_answers",
+export const companies = pgTable("companies", {
+  code: varchar("code", { length: 32 }).primaryKey().unique(),
+  name: text("name").notNull(),
+
+  priority: varchar("priority", { length: 8 }),
+  country: varchar("country", { length: 8 }),
+
+  tulosPercent: doublePrecision("tulos_percent"),
+  tulosPoints: doublePrecision("tulos_points"),
+  janallaPercent: doublePrecision("janalla_percent"),
+});
+
+export const companyQuestionScores = pgTable(
+  "company_question_scores",
   {
-    companyId: uuid("company_id")
+    code: varchar("company_code", { length: 32 })
       .notNull()
-      .references(() => companies.id, {
+      .references(() => companies.code, {
         onDelete: "cascade",
         onUpdate: "cascade",
       }),
-    questionId: integer("question_id")
+    questionCode: varchar("question_code", { length: 8 })
       .notNull()
-      .references(() => questions.id, {
-        onDelete: "restrict",
+      .references(() => questions.code, {
+        onDelete: "cascade",
         onUpdate: "cascade",
       }),
-    points: numeric("points", { precision: 10, scale: 2 }).notNull(),
+
+    score: doublePrecision("score").notNull(),
+    maxPoints: doublePrecision("max_points").notNull().default(0),
+    priority: priorityEnum("priority").notNull().default("LOW"),
+    requirement: requirementEnum("requirement").notNull().default("Minimum"),
   },
   (t) => [
     primaryKey({
-      name: "company_answers_pkey",
-      columns: [t.companyId, t.questionId],
+      columns: [t.code, t.questionCode],
+      name: "pk_company_question",
     }),
-    index("company_answers_company_idx").on(t.companyId),
-    index("company_answers_question_idx").on(t.questionId),
   ]
 );
 
-export const companyRelations = relations(companies, ({ many }) => ({
-  answers: many(companyAnswers),
+export const questionScoring = pgTable("question_scoring", {
+  code: varchar("question_code", { length: 8 })
+    .primaryKey()
+    .references(() => questions.code, {
+      onDelete: "cascade",
+      onUpdate: "cascade",
+    }),
+
+  maxPoints: doublePrecision("max_points").notNull().default(0),
+  priority: priorityEnum("priority").notNull().default("LOW"),
+  requirement: requirementEnum("requirement"),
+});
+
+export const companiesRelations = relations(companies, ({ many }) => ({
+  answers: many(companyQuestionScores),
 }));
 
-export const companyAnswerRelations = relations(companyAnswers, ({ one }) => ({
-  company: one(companies, {
-    fields: [companyAnswers.companyId],
-    references: [companies.id],
-  }),
-  question: one(questions, {
-    fields: [companyAnswers.questionId],
-    references: [questions.id],
-  }),
-}));
+export const companyQuestionScoresRelations = relations(
+  companyQuestionScores,
+  ({ one }) => ({
+    company: one(companies, {
+      fields: [companyQuestionScores.code],
+      references: [companies.code],
+    }),
+    question: one(questions, {
+      fields: [companyQuestionScores.questionCode],
+      references: [questions.code],
+    }),
+  })
+);
+
+export const questionScoringRelations = relations(
+  questionScoring,
+  ({ one }) => ({
+    question: one(questions, {
+      fields: [questionScoring.code],
+      references: [questions.code],
+    }),
+  })
+);
