@@ -46,18 +46,6 @@ export function Questionnaire({
         <div className="tab-content">
           <Questions />
         </div>
-
-        <input
-          type="radio"
-          name="my_tabs_2"
-          className="tab"
-          aria-label="Results"
-          checked={tab === "results"}
-          onChange={() => (categoryState.tab = "results")}
-        />
-        <div className="tab-content">
-          <div className="flex p-5">// TODO - Add Results and Charts here</div>
-        </div>
       </div>
     </div>
   );
