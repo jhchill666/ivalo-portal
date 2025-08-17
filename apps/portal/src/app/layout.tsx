@@ -4,6 +4,7 @@ import { Sidebar } from "./_components/sidebar.js";
 import BlobBackground from "./_components/blob-background.js";
 import { bodyFont, displayFont } from "./_theme/fonts.js";
 import "./_theme/global.css";
+import { Analytics } from "@vercel/analytics/next";
 
 export const metadata = {
   title: "Ivalo Portal",
@@ -40,6 +41,8 @@ export default function RootLayout({
             </main>
           </div>
         </div>
+
+        <Analytics />
       </body>
     </html>
   );
