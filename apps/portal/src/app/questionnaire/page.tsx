@@ -3,6 +3,8 @@ import { QuestionsRepository } from "../_repositories/questions.repository.js";
 import { Tab } from "../_store/category.state.js";
 import { Questionnaire } from "./_components/questionnaire.js";
 
+export const dynamic = "force-static";
+
 export default async function Index({
   searchParams,
 }: {

@@ -3,6 +3,8 @@ import { CompanyRepository } from "../_repositories/company.repository.js";
 import { ScoreLegend } from "./_components/score.legend.js";
 import { ScoreStats } from "./_components/score.stats.js";
 
+export const dynamic = "force-static";
+
 export default async function Index() {
   const { db } = await connectDb();
   const companyRepo = new CompanyRepository(db);
@@ -119,66 +121,61 @@ export default async function Index() {
                       </div>
                     )}
 
-                    <a
-                      className="flex items-center justify-between"
-                      href={`/brands/${company.code}`}
-                    >
-                      {/* Company Info */}
-                      <div className="flex items-center gap-6 flex-1">
-                        {/* Rank */}
-                        <div className="flex items-center gap-6">
-                          <div className="badge badge-primary text-xl font-display mr-2">
-                            {rank}
+                    {/* Company Info */}
+                    <div className="flex items-center gap-6 flex-1">
+                      {/* Rank */}
+                      <div className="flex items-center gap-6">
+                        <div className="badge badge-primary text-xl font-display mr-2">
+                          {rank}
+                        </div>
+                        <div>
+                          <h3 className="text-xl font-bold text-slate-800 font-display">
+                            {company.name}
+                          </h3>
+                          {isFirst && (
+                            <div className="flex items-center gap-2 mt-1">
+                              <span className="bg-amber-500 text-white px-2 py-1 rounded-full text-xs font-semibold">
+                                TOP PERFORMER
+                              </span>
+                              <span className="text-xs font-normal text-slate-500">
+                                Leading sustainable business practices
+                              </span>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+
+                      {/* Score */}
+                      <div className="flex items-center gap-6 ml-auto">
+                        <div className="text-center">
+                          <div className="text-3xl font-semibold text-slate-500 font-display">
+                            {company.tulosPoints}
                           </div>
-                          <div>
-                            <h3 className="text-xl font-bold text-slate-800 font-display">
-                              {company.name}
-                            </h3>
-                            {isFirst && (
-                              <div className="flex items-center gap-2 mt-1">
-                                <span className="bg-amber-500 text-white px-2 py-1 rounded-full text-xs font-semibold">
-                                  TOP PERFORMER
-                                </span>
-                                <span className="text-xs font-normal text-slate-500">
-                                  Leading sustainable business practices
-                                </span>
-                              </div>
-                            )}
+                          <div className="text-sm font-normal text-slate-500">
+                            Total Points
                           </div>
                         </div>
 
-                        {/* Score */}
-                        <div className="flex items-center gap-6 ml-auto">
-                          <div className="text-center">
-                            <div className="text-3xl font-semibold text-slate-500 font-display">
-                              {company.tulosPoints}
-                            </div>
-                            <div className="text-sm font-normal text-slate-500">
-                              Total Points
-                            </div>
+                        {/* Divider */}
+                        <div className="w-px h-12 bg-slate-200"></div>
+
+                        <div className="text-center">
+                          <div
+                            className={`text-3xl font-bold font-display ${getScoreColor(
+                              Number(company.tulosPercent ?? 0) * 100
+                            )}`}
+                          >
+                            {Number((company.tulosPercent ?? 0) * 100).toFixed(
+                              2
+                            )}
+                            %
                           </div>
-
-                          {/* Divider */}
-                          <div className="w-px h-12 bg-slate-200"></div>
-
-                          <div className="text-center">
-                            <div
-                              className={`text-3xl font-bold font-display ${getScoreColor(
-                                Number(company.tulosPercent ?? 0) * 100
-                              )}`}
-                            >
-                              {Number(
-                                (company.tulosPercent ?? 0) * 100
-                              ).toFixed(2)}
-                              %
-                            </div>
-                            <div className="text-sm font-medium text-slate-600">
-                              Validation Score
-                            </div>
+                          <div className="text-sm font-medium text-slate-600">
+                            Validation Score
                           </div>
                         </div>
                       </div>
-                    </a>
+                    </div>
                   </div>
                 );
               })}
