@@ -2,7 +2,7 @@ import { QuestionCategoryWithQuestions } from "@ivalo/db";
 import { Tab } from "../_store/category.state.js";
 import { Questionnaire } from "./_components/questionnaire.js";
 
-export const dynamic = "force-static";
+// export const dynamic = "force-static";
 
 export default async function Index({
   searchParams,

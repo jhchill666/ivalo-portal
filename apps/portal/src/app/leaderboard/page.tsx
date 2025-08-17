@@ -2,7 +2,7 @@ import { Company } from "@ivalo/db";
 import { ScoreLegend } from "./_components/score.legend.js";
 import { ScoreStats } from "./_components/score.stats.js";
 
-export const dynamic = "force-static";
+// export const dynamic = "force-static";
 
 export default async function Index() {
   try {
