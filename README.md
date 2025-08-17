@@ -52,6 +52,15 @@ This stack represents the latest thinking in application design and composition.
 - **SWC** - Fast TypeScript/JavaScript compiler
 - **Yarn 4** - Modern package manager with workspaces
 
+### Testing
+
+Given the limited time, the application currently contains no tests. This is contrary to myusual practice of including comprehensive test suites across both the frontend and backend application. Usual stack would include:
+
+- **Vitest** - Next generation unit testing framework for ESM/modern typescript
+- **Puppeteer** - Provides a high-level API for testing browser based E2E tests
+- **TestContainers** - Lightweight throw-away containers for testing databases
+- **K6** - Stress/Load testing framework for production APIs
+
 ## 🎯 Current Features
 
 ### Core Functionality
