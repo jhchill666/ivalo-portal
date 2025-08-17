@@ -1,5 +1,4 @@
-import { connectDb } from "@ivalo/db";
-import { QuestionsRepository } from "../_repositories/questions.repository.js";
+import { QuestionCategoryWithQuestions } from "@ivalo/db";
 import { Tab } from "../_store/category.state.js";
 import { Questionnaire } from "./_components/questionnaire.js";
 
@@ -10,11 +9,15 @@ export default async function Index({
 }: {
   searchParams: { tab?: string };
 }) {
-  const { db } = await connectDb();
   const { tab = "company" } = await searchParams;
+  const res = await fetch(
+    `${process.env["NEXT_PUBLIC_SITE_URL"]}/api/questions`,
+    {
+      next: { revalidate: 3600 },
+    }
+  );
 
-  const repo = new QuestionsRepository(db);
-  const categories = await repo.getQuestions();
+  const categories = (await res.json()) as QuestionCategoryWithQuestions[];
 
   if (!categories) {
     return (

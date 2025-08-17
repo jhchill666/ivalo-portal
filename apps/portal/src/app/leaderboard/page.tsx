@@ -1,16 +1,19 @@
-import { connectDb } from "@ivalo/db";
-import { CompanyRepository } from "../_repositories/company.repository.js";
+import { Company } from "@ivalo/db";
 import { ScoreLegend } from "./_components/score.legend.js";
 import { ScoreStats } from "./_components/score.stats.js";
 
 export const dynamic = "force-static";
 
 export default async function Index() {
-  const { db } = await connectDb();
-  const companyRepo = new CompanyRepository(db);
-
   try {
-    const companies = await companyRepo.getCompanies(999);
+    const res = await fetch(
+      `${process.env["NEXT_PUBLIC_SITE_URL"]}/api/companies`,
+      {
+        next: { revalidate: 3600 },
+      }
+    );
+
+    const companies = (await res.json()) as Company[];
 
     // Sort companies by tulosPercent in descending order for leaderboard
     const sortedCompanies = companies.sort(
