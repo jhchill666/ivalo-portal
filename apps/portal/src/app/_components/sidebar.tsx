@@ -51,12 +51,11 @@ export function Sidebar() {
           <a
             key={route}
             href={route}
-            className={`flex tooltip items-center py-2 text-gray-900 hover:bg-gray-100 rounded-sm cursor-pointer mb-2 ${
+            className={`flex items-center py-2 text-gray-900 hover:bg-gray-100 rounded-sm cursor-pointer mb-2 ${
               open ? "px-4" : "px-2 justify-center"
             } ${
               pathname === route ? "bg-blue-50 border-l-2 border-blue-500" : ""
             }`}
-            data-tip={title}
           >
             <Icon className="w-5 h-5 text-gray-500" />
             <span

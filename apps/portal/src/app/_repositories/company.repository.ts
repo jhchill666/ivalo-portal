@@ -6,7 +6,7 @@ export class CompanyRepository {
   async getCompanies(limit = 999): Promise<Company[]> {
     try {
       const result = await this.db.query.companies.findMany({
-        orderBy: (companies, { asc }) => [asc(companies.name)],
+        orderBy: (companies, { asc }) => [asc(companies.tulosPercent)],
         limit,
       });
 

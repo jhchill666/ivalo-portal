@@ -17,7 +17,7 @@ interface Page {
 export const pages: Page[] = [
   {
     route: "/",
-    title: "360 Retail",
+    title: "360 Leaderboard",
     bg: "blob-green",
     Icon: House,
   },

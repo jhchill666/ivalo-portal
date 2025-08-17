@@ -1,14 +1,14 @@
 import { connectDb } from "@ivalo/db";
 import { CompanyRepository } from "./_repositories/company.repository";
-
-export const dynamic = "force-dynamic";
+import { ScoreLegend } from "./_components/home/score.legend";
+import { ScoreStats } from "./_components/home/score.stats";
 
 export default async function Index() {
   const { db } = await connectDb();
   const companyRepo = new CompanyRepository(db);
 
   try {
-    const companies = await companyRepo.getCompanies(20);
+    const companies = await companyRepo.getCompanies(999);
 
     // Sort companies by tulosPercent in descending order for leaderboard
     const sortedCompanies = companies.sort(
@@ -34,8 +34,8 @@ export default async function Index() {
           <div className="mb-12">
             <div className="flex items-start justify-between mb-8">
               <div className="space-y-3">
-                <h1 className="text-5xl text-slate-800 font-bold leading-relaxed font-display">
-                  360 RETAIL
+                <h1 className="text-3xl font-bold text-gray-900 mb-8 font-display">
+                  360 Leaderboard
                 </h1>
                 <p className="text-lg text-slate-600  font-bold max-w-2xl leading-relaxed">
                   From chaos to clarity, in a matter of weeks.
@@ -47,54 +47,14 @@ export default async function Index() {
                 </p>
               </div>
 
-              {/* Portfolio Score Badge */}
-              <div className="bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
-                <div className="text-center">
-                  <div className="text-3xl font-bold text-slate-800 mb-2 font-display">
-                    {portfolioAverage.toFixed(1)}%
-                  </div>
-                  <div className="text-sm font-medium text-slate-600 mb-1">
-                    Portfolio Average
-                  </div>
-                  <div className="w-24 h-2 bg-slate-100 rounded-full mx-auto">
-                    <div
-                      className="h-2 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full transition-all duration-700"
-                      style={{ width: `${Math.min(portfolioAverage, 100)}%` }}
-                    />
-                  </div>
-                  <div className="text-xs font-normal text-slate-500 mt-2">
-                    {companies.length} brands assessed
-                  </div>
-                </div>
-              </div>
+              <ScoreStats
+                companies={companies}
+                portfolioAverage={portfolioAverage}
+              />
             </div>
           </div>
 
-          {/* Score Legend */}
-          <div className="mb-8">
-            <div className="flex items-center gap-4 text-xs font-normal">
-              <div className="flex items-center gap-1">
-                <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-                <span className="text-slate-600">90-100%: EXCELLENT</span>
-              </div>
-              <div className="flex items-center gap-1">
-                <div className="w-3 h-3 bg-emerald-400 rounded-full"></div>
-                <span className="text-slate-600">70-89%: Very good</span>
-              </div>
-              <div className="flex items-center gap-1">
-                <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
-                <span className="text-slate-600">50-69%: Good</span>
-              </div>
-              <div className="flex items-center gap-1">
-                <div className="w-3 h-3 bg-orange-500 rounded-full"></div>
-                <span className="text-slate-600">30-49%: OK</span>
-              </div>
-              <div className="flex items-center gap-1">
-                <div className="w-3 h-3 bg-red-500 rounded-full"></div>
-                <span className="text-slate-600">0-29%: Basic</span>
-              </div>
-            </div>
-          </div>
+          <ScoreLegend />
 
           {/* Leaderboard Content */}
           {sortedCompanies.length === 0 ? (
@@ -140,7 +100,7 @@ export default async function Index() {
                 return (
                   <div
                     key={company.code}
-                    className={`relative rounded-lg shadow-sm border transition-all duration-300 hover:shadow-lg cursor-pointer ${
+                    className={`rounded-lg bg-[0x333333]/90 relative shadow-sm hover:shadow-md p-7 my-3 mb-0 flex-1 items-start gap-2 cursor-pointer ${
                       isFirst
                         ? "border-amber-400 bg-gradient-to-r from-amber-50 to-yellow-50 p-8"
                         : isSecond
@@ -153,7 +113,7 @@ export default async function Index() {
                     {/* Gold Star/Rosette for #1 */}
                     {isFirst && (
                       <div className="absolute -top-4 -right-2">
-                        <div className="w-8 h-8 bg-gradient-to-br from-yellow-400 to-amber-500 rounded-full flex items-center justify-center shadow-lg">
+                        <div className="w-12 h-12 bg-gradient-to-br from-yellow-400 to-amber-500 rounded-full flex items-center justify-center shadow-lg">
                           <span className="text-white text-lg">⭐</span>
                         </div>
                       </div>
@@ -167,18 +127,8 @@ export default async function Index() {
                       <div className="flex items-center gap-6 flex-1">
                         {/* Rank */}
                         <div className="flex items-center gap-6">
-                          <div
-                            className={`w-10 h-10 rounded-xl flex items-center justify-center text-sm font-bold shadow-md transition-all duration-300 ${
-                              isFirst
-                                ? "bg-gradient-to-br from-amber-400 to-orange-500 text-white ring-2 ring-amber-200"
-                                : isSecond
-                                ? "bg-gradient-to-br from-slate-300 to-slate-400 text-white ring-2 ring-slate-200"
-                                : isThird
-                                ? "bg-gradient-to-br from-amber-600 to-orange-600 text-white ring-2 ring-amber-200"
-                                : "bg-gradient-to-br from-slate-100 to-slate-200 text-slate-600 border border-slate-200"
-                            }`}
-                          >
-                            #{rank}
+                          <div className="badge badge-primary text-xl font-display mr-2">
+                            {rank}
                           </div>
                           <div>
                             <h3 className="text-xl font-bold text-slate-800 font-display">

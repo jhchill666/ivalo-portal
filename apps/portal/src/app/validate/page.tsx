@@ -2,8 +2,6 @@ import { connectDb } from "@ivalo/db";
 import { QuestionsRepository } from "../_repositories/questions.repository.js";
 import { Questions } from "./_components/questions.jsx";
 
-export const dynamic = "force-dynamic";
-
 export default async function Index() {
   const { db } = await connectDb();
 
@@ -47,7 +45,9 @@ export default async function Index() {
           className="tab"
           aria-label="Overview"
         />
-        <div className="tab-content">Tab content 2</div>
+        <div className="tab-content">
+          <div className="flex p-5">// TODO - Add Results and Charts here</div>
+        </div>
       </div>
     </div>
   );

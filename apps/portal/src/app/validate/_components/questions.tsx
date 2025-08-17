@@ -4,7 +4,6 @@ import { QuestionCategoryWithQuestions } from "@ivalo/db";
 import { useEffect } from "react";
 import { useSnapshot } from "valtio";
 import { categoryState } from "../../_store/category.state.js";
-import { toDotNotation } from "../../_store/category.utils.js";
 import { QuestionItem } from "./question.item.jsx";
 
 export function Questions({
@@ -15,8 +14,9 @@ export function Questions({
   const {
     category,
     question,
-    remainingCategories,
+    categoryIndex,
     completedQuestions,
+    questionIndex,
     remainingQuestions,
     selectedOption,
   } = useSnapshot(categoryState);
@@ -34,16 +34,6 @@ export function Questions({
               <h1 className="text-3xl font-bold text-gray-900 mb-8 font-display">
                 {category?.code}. {category?.text}
               </h1>
-              <div className="flex gap-2">
-                {remainingCategories.map((cat) => (
-                  <h1
-                    className="text-3xl font-bold text-gray-900/[0.40] mb-8 font-display"
-                    key={cat.code}
-                  >
-                    {toDotNotation(cat.code)}
-                  </h1>
-                ))}
-              </div>
             </div>
 
             <div className="divide-y divide-gray-100">
@@ -61,7 +51,10 @@ export function Questions({
               <button
                 className="btn btn-xl font-display flex-1"
                 onClick={() => categoryState.previousQuestion()}
-                disabled={remainingQuestions.length === 0}
+                disabled={
+                  remainingQuestions.length === 0 ||
+                  (categoryIndex === 0 && questionIndex === 0)
+                }
               >
                 Previous Question
               </button>

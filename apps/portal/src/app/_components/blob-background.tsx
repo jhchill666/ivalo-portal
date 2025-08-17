@@ -9,7 +9,7 @@ export default function BlobBackground() {
 
   return (
     <div
-      className={`fixed inset-0 opacity-70 pointer-events-none z-0 ${
+      className={`fixed inset-0 opacity-60 pointer-events-none z-0 ${
         page?.bg ?? "blob-salmon"
       }`}
       style={{

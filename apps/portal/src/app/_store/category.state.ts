@@ -4,6 +4,7 @@ import {
   QuestionWithOptions,
 } from "@ivalo/db";
 import { proxy } from "valtio";
+import { validateCategories } from "./category.utils";
 
 interface CategoryState {
   categories: QuestionCategoryWithQuestions[];
@@ -44,27 +45,13 @@ export const categoryState = proxy<CategoryState>({
   loaded: false,
 
   hydrateCategories(categories: QuestionCategoryWithQuestions[]) {
-    categoryState.categories = categories;
-    categoryState.category = categories[0];
+    categoryState.categories = validateCategories(categories);
+    categoryState.category = categoryState.categories[0];
     categoryState.question = categoryState.category?.questions[0];
     categoryState.categoryIndex = 0;
     categoryState.questionIndex = 0;
 
-    categoryState.completedCategories = categoryState.categories.slice(
-      0,
-      categoryState.categoryIndex + 1
-    );
-    categoryState.remainingCategories = categoryState.categories.slice(
-      categoryState.categoryIndex + 1
-    );
-
-    categoryState.completedQuestions = categoryState.category?.questions.slice(
-      0,
-      categoryState.questionIndex + 1
-    ) as QuestionWithOptions[];
-    categoryState.remainingQuestions = categoryState.category?.questions.slice(
-      categoryState.questionIndex + 1
-    ) as QuestionWithOptions[];
+    updateRemaining();
   },
 
   nextQuestion() {
@@ -88,7 +75,8 @@ export const categoryState = proxy<CategoryState>({
     }
 
     categoryState.selectedOption = undefined;
-    console.dir(categoryState.question, { depth: null });
+    window?.scrollTo({ top: 0, behavior: "smooth" });
+    updateRemaining();
   },
 
   previousQuestion() {
@@ -110,5 +98,25 @@ export const categoryState = proxy<CategoryState>({
     }
 
     categoryState.selectedOption = undefined;
+    window?.scrollTo({ top: 0, behavior: "smooth" });
+    updateRemaining();
   },
 });
+
+const updateRemaining = () => {
+  categoryState.completedCategories = categoryState.categories.slice(
+    0,
+    categoryState.categoryIndex + 1
+  );
+  categoryState.remainingCategories = categoryState.categories.slice(
+    categoryState.categoryIndex + 1
+  );
+
+  categoryState.completedQuestions = categoryState.category?.questions.slice(
+    0,
+    categoryState.questionIndex + 1
+  ) as QuestionWithOptions[];
+  categoryState.remainingQuestions = categoryState.category?.questions.slice(
+    categoryState.questionIndex + 1
+  ) as QuestionWithOptions[];
+};

@@ -5,6 +5,7 @@ export function Header() {
   return (
     <header className="h-14 bg-white flex items-center px-4 border-b border-gray-200 shrink-0 relative z-50">
       <img src="/images/360.png" alt="360" className="h-8 w-auto mr-3" />
+
       <div className="flex-1">
         <HeaderTitle />
       </div>
