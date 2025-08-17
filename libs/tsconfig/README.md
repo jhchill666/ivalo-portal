@@ -1,11 +1,11 @@
-# `@inbox/tsconfig`
+# `@ivalo/tsconfig`
 
-Collection of internal tsconfigs shared between inbox workspaces
+Collection of internal tsconfigs shared between workspaces
 
 Usage:
 
 ```
 {
-  "extends": "@inbox/tsconfig",
+  "extends": "@ivalo/tsconfig/node",
 }
 ```
