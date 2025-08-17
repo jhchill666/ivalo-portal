@@ -1,8 +1,8 @@
 "use client";
 
 import { QuestionWithOptions } from "@ivalo/db";
-import { QuestionOptionItem } from "./question.item.option.jsx";
-import { toDotNotation } from "../../_store/category.utils.js";
+import { toDotNotation } from "../../../_store/category.utils.js";
+import { QuestionOptionItem } from "./question.item.option.js";
 
 export function QuestionItem({
   question,
@@ -11,7 +11,7 @@ export function QuestionItem({
 }) {
   return (
     <div>
-      <ul className="list bg-base-100 rounded-box shadow-md">
+      <ul className="list bg-base-100 rounded-box shadow-md border border-slate-400/[20%]">
         <li className="rounded-lg bg-slate-400/[0.10] p-7 m-3 mb-0 flex items-start gap-2">
           <div className="flex gap-2 w-full">
             <div className="badge badge-primary text-xl font-display mt-1.5 mr-2">

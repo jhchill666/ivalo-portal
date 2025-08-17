@@ -47,7 +47,7 @@ export function Sidebar() {
           open ? "px-2" : "px-1"
         }`}
       >
-        {pages.map(({ route, title, Icon }) => (
+        {pages.map(({ route, title, shortTitle, Icon }) => (
           <a
             key={route}
             href={route}
@@ -63,7 +63,7 @@ export function Sidebar() {
                 open ? "opacity-100 ml-3" : "opacity-0 w-0 ml-0"
               }`}
             >
-              {title}
+              {shortTitle ?? title}
             </span>
           </a>
         ))}

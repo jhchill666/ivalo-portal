@@ -1,10 +1,11 @@
 "use client";
 
 import { QuestionOption } from "@ivalo/db";
+import cx from "classnames";
 import { CircleCheckBig, CircleQuestionMark, Info } from "lucide-react";
 import { useCallback } from "react";
 import { useSnapshot } from "valtio";
-import { categoryState } from "../../_store/category.state.js";
+import { categoryState } from "../../../_store/category.state.js";
 
 export function QuestionOptionItem({
   option,
@@ -27,13 +28,19 @@ export function QuestionOptionItem({
     [snap.selectedOption]
   );
 
+  const classNames = cx({
+    "list-row": true,
+    "bg-green-300": isSelected,
+    "border border-green-500": isSelected,
+    "hover:bg-green-100": !isSelected,
+    "cursor-pointer": true,
+  });
+
   return (
     <li
-      className={`list-row ${isSelected ? "bg-green-300" : ""} ${
-        isSelected ? "" : "hover:bg-green-100"
-      }  cursor-pointer`}
       key={option.id}
       onClick={() => onSelectItem(option)}
+      className={classNames}
     >
       <div className="text-3xl font-thin opacity-60 tabular-nums">
         {String(index + 1).padStart(2, "0")}
@@ -48,21 +55,15 @@ export function QuestionOptionItem({
             </div>
           )}
         </div>
-
-        {/* {option.info && isSelected && (
-          <div className="text-xs uppercase font-semibold opacity-50">
-            {option.info}
-          </div>
-        )} */}
       </div>
 
       {isSelected ? (
-        <CircleCheckBig size={32} className="text-black" />
+        <CircleCheckBig size={32} className="text-white" />
       ) : (
         <CircleQuestionMark
           size={32}
           className={
-            !!snap.selectedOption ? "text-slate-400/50" : "text-orange-500"
+            !!snap.selectedOption ? "text-slate-400/50" : "text-amber-500"
           }
         />
       )}

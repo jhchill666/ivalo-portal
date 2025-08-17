@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { pages } from "../_store/app.state";
+import { pages } from "../_store/app.state.js";
 
 const classNames = "text-gray-600 tracking-wide";
 

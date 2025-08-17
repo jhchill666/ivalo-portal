@@ -1,16 +1,10 @@
 "use client";
 
-import { QuestionCategoryWithQuestions } from "@ivalo/db";
-import { useEffect } from "react";
 import { useSnapshot } from "valtio";
-import { categoryState } from "../../_store/category.state.js";
-import { QuestionItem } from "./question.item.jsx";
+import { categoryState } from "../../../_store/category.state.js";
+import { QuestionItem } from "./question.item.js";
 
-export function Questions({
-  categories,
-}: {
-  categories: QuestionCategoryWithQuestions[];
-}) {
+export function Questions() {
   const {
     category,
     question,
@@ -20,10 +14,6 @@ export function Questions({
     remainingQuestions,
     selectedOption,
   } = useSnapshot(categoryState);
-
-  useEffect(() => {
-    categoryState.hydrateCategories(categories);
-  }, [categoryState, categories]);
 
   return (
     <div className="divide-y divide-gray-100">
@@ -47,7 +37,7 @@ export function Questions({
               </div>
             </div>
 
-            <div className="flex gap-4 mt-8">
+            <div className="flex gap-4 mt-4">
               <button
                 className="btn btn-xl font-display flex-1"
                 onClick={() => categoryState.previousQuestion()}

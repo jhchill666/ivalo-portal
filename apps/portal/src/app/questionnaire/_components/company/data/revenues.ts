@@ -1,0 +1,15 @@
+export const revenues = [
+  { value: "lt_100k", label: "Less than 100 000 €" },
+  { value: "100k_500k", label: "100 000 € - 500 000 €" },
+  { value: "500k_1m", label: "500 000 € - 1 Million €" },
+  { value: "1m_2m", label: "1 Million € - 2 Million €" },
+  { value: "3m_5m", label: "3 Million € - 5 Million €" },
+  { value: "5m_10m", label: "5 Million € - 10 Million €" },
+  { value: "10m_25m", label: "10 Million € - 25 Million €" },
+  { value: "25m_50m", label: "25 Million € - 50 Million €" },
+  { value: "50m_75m", label: "50 Million € - 75 Million €" },
+  { value: "75m_100m", label: "75 Million € - 100 Million €" },
+  { value: "100m_300m", label: "100 Million € - 300 Million €" },
+  { value: "300m_500m", label: "300 Million € - 500 Million €" },
+  { value: "gt_500m", label: "500 Million € +" },
+];

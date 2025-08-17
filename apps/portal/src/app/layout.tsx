@@ -1,8 +1,8 @@
-import { Header } from "./_components/header.jsx";
-import { Sidebar } from "./_components/sidebar.jsx";
+import { Header } from "./_components/header.js";
+import { Sidebar } from "./_components/sidebar.js";
 
-import BlobBackground from "./_components/blob-background.jsx";
-import { bodyFont, displayFont } from "./_theme/fonts.jsx";
+import BlobBackground from "./_components/blob-background.js";
+import { bodyFont, displayFont } from "./_theme/fonts.js";
 import "./_theme/global.css";
 
 export const metadata = {

@@ -1,0 +1,21 @@
+export const productCategories = [
+  { value: "womenswear", label: "Womenswear" },
+  { value: "menswear", label: "Menswear" },
+  { value: "unisex_wear", label: "Unisex wear" },
+  { value: "jeans", label: "Jeans" },
+  { value: "activewear_sportswear", label: "Activewear / sportswear" },
+  { value: "outerwear", label: "Outerwear" },
+  { value: "kidswear", label: "Kidswear" },
+  { value: "shoes", label: "Shoes" },
+  { value: "bags", label: "Bags" },
+  { value: "small_leather_goods", label: "Small leather goods" },
+  {
+    value: "hats_scarfs_soft_accessories",
+    label: "Hats, scarfs, soft accessories",
+  },
+  { value: "underwear", label: "Underwear" },
+  { value: "swimwear", label: "Swimwear" },
+  { value: "hosiery_socks", label: "Hosiery & Socks" },
+  { value: "home_textiles", label: "Home textiles" },
+  { value: "interior_pieces", label: "Interior pieces" },
+];

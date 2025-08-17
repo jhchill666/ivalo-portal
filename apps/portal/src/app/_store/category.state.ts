@@ -4,9 +4,12 @@ import {
   QuestionWithOptions,
 } from "@ivalo/db";
 import { proxy } from "valtio";
-import { validateCategories } from "./category.utils";
+import { validateCategories } from "./category.utils.js";
+
+export type Tab = "company" | "questions" | "results";
 
 interface CategoryState {
+  tab: Tab;
   categories: QuestionCategoryWithQuestions[];
   category: QuestionCategoryWithQuestions | undefined;
   question?: QuestionWithOptions | undefined;
@@ -20,7 +23,10 @@ interface CategoryState {
   remainingQuestions: QuestionWithOptions[];
   completedQuestions: QuestionWithOptions[];
 
-  hydrateCategories: (categories: QuestionCategoryWithQuestions[]) => void;
+  hydrateCategories: (
+    categories: QuestionCategoryWithQuestions[],
+    tab?: Tab
+  ) => void;
   previousQuestion: () => void;
   nextQuestion: () => void;
 
@@ -29,6 +35,7 @@ interface CategoryState {
 }
 
 export const categoryState = proxy<CategoryState>({
+  tab: "company",
   categories: [],
   category: undefined,
   categoryIndex: 0,
@@ -44,12 +51,16 @@ export const categoryState = proxy<CategoryState>({
   loading: true,
   loaded: false,
 
-  hydrateCategories(categories: QuestionCategoryWithQuestions[]) {
+  hydrateCategories(
+    categories: QuestionCategoryWithQuestions[],
+    tab = "company"
+  ) {
     categoryState.categories = validateCategories(categories);
     categoryState.category = categoryState.categories[0];
     categoryState.question = categoryState.category?.questions[0];
     categoryState.categoryIndex = 0;
     categoryState.questionIndex = 0;
+    categoryState.tab = tab;
 
     updateRemaining();
   },
@@ -73,6 +84,8 @@ export const categoryState = proxy<CategoryState>({
         // finished
       }
     }
+
+    console.log(categoryState.question);
 
     categoryState.selectedOption = undefined;
     window?.scrollTo({ top: 0, behavior: "smooth" });

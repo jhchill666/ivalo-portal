@@ -1,231 +1,276 @@
-import { connectDb } from "@ivalo/db";
-import { CompanyRepository } from "./_repositories/company.repository";
-import { ScoreLegend } from "./_components/home/score.legend";
-import { ScoreStats } from "./_components/home/score.stats";
+import {
+  Building2,
+  Glasses,
+  Leaf,
+  ShieldCheck,
+  ShoppingCart,
+  Trophy,
+  Users,
+} from "lucide-react";
+import Link from "next/link";
+import { IvaloLink } from "./_components/home/ivalo.link";
 
-export default async function Index() {
-  const { db } = await connectDb();
-  const companyRepo = new CompanyRepository(db);
+export default function Index() {
+  return (
+    <div className="min-h-screen">
+      <div className="max-w-6xl mx-auto px-6 py-8">
+        {/* Greeting Header - Outside the box */}
+        <div className="flex flex-row justify-between mb-6">
+          <h1 className="text-3xl font-bold text-gray-900">
+            360 Sustainability
+          </h1>
 
-  try {
-    const companies = await companyRepo.getCompanies(999);
-
-    // Sort companies by tulosPercent in descending order for leaderboard
-    const sortedCompanies = companies.sort(
-      (a, b) =>
-        parseFloat(String(b.tulosPercent ?? "0")) -
-        parseFloat(String(a.tulosPercent ?? "0"))
-    );
-
-    // Calculate portfolio average
-    const portfolioAverage =
-      companies.length > 0
-        ? companies.reduce(
-            (sum, company) =>
-              sum + parseFloat(String(company.tulosPercent ?? "0")),
-            0
-          ) / companies.length
-        : 0;
-
-    return (
-      <div className="min-h-screen blob-yellow">
-        <div className="max-w-7xl mx-auto px-6 py-8">
-          {/* Header Section */}
-          <div className="mb-12">
-            <div className="flex items-start justify-between mb-8">
-              <div className="space-y-3">
-                <h1 className="text-3xl font-bold text-gray-900 mb-8 font-display">
-                  360 Leaderboard
-                </h1>
-                <p className="text-lg text-slate-600  font-bold max-w-2xl leading-relaxed">
-                  From chaos to clarity, in a matter of weeks.
-                </p>
-                <p className="text-lg font-normal text-slate-600 max-w-2xl leading-relaxed">
-                  A lightweight and comprehensive way to assess, score, and
-                  manage the sustainability of your brand portfolio all at once
-                  - without surveys, spreadsheets, or headaches.
-                </p>
-              </div>
-
-              <ScoreStats
-                companies={companies}
-                portfolioAverage={portfolioAverage}
-              />
-            </div>
-          </div>
-
-          <ScoreLegend />
-
-          {/* Leaderboard Content */}
-          {sortedCompanies.length === 0 ? (
-            <div className="bg-white/80 backdrop-blur-sm rounded-3xl shadow-lg border border-white/20 p-16 text-center">
-              <div className="w-20 h-20 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                <svg
-                  className="w-10 h-10 text-slate-400"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
-                  />
-                </svg>
-              </div>
-              <h3 className="text-2xl font-semibold text-slate-700 mb-2">
-                No Companies Found
-              </h3>
-              <p className="text-slate-500">
-                Start by adding some companies to see them appear on the
-                leaderboard.
-              </p>
-            </div>
-          ) : (
-            <div className="space-y-4">
-              {sortedCompanies.map((company, index) => {
-                const rank = index + 1;
-                const isFirst = rank === 1;
-                const isSecond = rank === 2;
-                const isThird = rank === 3;
-
-                const getScoreColor = (score: number) => {
-                  if (score >= 60) return "text-green-600";
-                  if (score >= 40) return "text-emerald-600";
-                  if (score >= 20) return "text-yellow-600";
-                  return "text-red-600";
-                };
-
-                return (
-                  <div
-                    key={company.code}
-                    className={`rounded-lg bg-[0x333333]/90 relative shadow-sm hover:shadow-md p-7 my-3 mb-0 flex-1 items-start gap-2 cursor-pointer ${
-                      isFirst
-                        ? "border-amber-400 bg-gradient-to-r from-amber-50 to-yellow-50 p-8"
-                        : isSecond
-                        ? "border-slate-300 bg-slate-100 p-6"
-                        : isThird
-                        ? "border-slate-300 bg-slate-100 p-6"
-                        : "bg-white border-slate-200 p-6"
-                    }`}
-                  >
-                    {/* Gold Star/Rosette for #1 */}
-                    {isFirst && (
-                      <div className="absolute -top-4 -right-2">
-                        <div className="w-12 h-12 bg-gradient-to-br from-yellow-400 to-amber-500 rounded-full flex items-center justify-center shadow-lg">
-                          <span className="text-white text-lg">⭐</span>
-                        </div>
-                      </div>
-                    )}
-
-                    <a
-                      className="flex items-center justify-between"
-                      href={`/brands/${company.code}`}
-                    >
-                      {/* Company Info */}
-                      <div className="flex items-center gap-6 flex-1">
-                        {/* Rank */}
-                        <div className="flex items-center gap-6">
-                          <div className="badge badge-primary text-xl font-display mr-2">
-                            {rank}
-                          </div>
-                          <div>
-                            <h3 className="text-xl font-bold text-slate-800 font-display">
-                              {company.name}
-                            </h3>
-                            {isFirst && (
-                              <div className="flex items-center gap-2 mt-1">
-                                <span className="bg-amber-500 text-white px-2 py-1 rounded-full text-xs font-semibold">
-                                  TOP PERFORMER
-                                </span>
-                                <span className="text-xs font-normal text-slate-500">
-                                  Leading sustainable business practices
-                                </span>
-                              </div>
-                            )}
-                          </div>
-                        </div>
-
-                        {/* Score */}
-                        <div className="flex items-center gap-6 ml-auto">
-                          <div className="text-center">
-                            <div className="text-3xl font-semibold text-slate-500 font-display">
-                              {company.tulosPoints}
-                            </div>
-                            <div className="text-sm font-normal text-slate-500">
-                              Total Points
-                            </div>
-                          </div>
-
-                          {/* Divider */}
-                          <div className="w-px h-12 bg-slate-200"></div>
-
-                          <div className="text-center">
-                            <div
-                              className={`text-3xl font-bold font-display ${getScoreColor(
-                                Number(company.tulosPercent ?? 0) * 100
-                              )}`}
-                            >
-                              {Number(
-                                (company.tulosPercent ?? 0) * 100
-                              ).toFixed(2)}
-                              %
-                            </div>
-                            <div className="text-sm font-medium text-slate-600">
-                              Validation Score
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </a>
-                  </div>
-                );
-              })}
-            </div>
-          )}
-
-          {/* Footer Note */}
-          <div className="mt-12 text-center">
-            <p className="text-xs text-slate-500 max-w-2xl mx-auto">
-              ATTENTION: As we comply with the EU Green Claims directive, please
-              note that the contents of this 360 analysis is for your internal
-              sustainability development only. Not for B2C communication.
-            </p>
+          <div className="flex items-center gap-4">
+            <span className="text-sm text-gray-600">Need help?</span>
+            <button className="btn btn-primary">Talk to us!</button>
           </div>
         </div>
-      </div>
-    );
-  } catch (error) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-red-50 to-pink-50">
-        <div className="max-w-4xl mx-auto py-16 px-6">
-          <div className="bg-white/80 backdrop-blur-sm border border-red-200/50 rounded-3xl p-12 text-center shadow-xl">
-            <div className="w-20 h-20 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-6">
-              <svg
-                className="w-10 h-10 text-red-500"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
+
+        {/* Main Card Container */}
+        <div className="list bg-white rounded-box overflow-hidden p-2">
+          {/* Main Functionality Cards */}
+          <div className="mb-6">
+            <div className="grid md:grid-cols-3 gap-2">
+              {/* Questions & Survey */}
+              <Link
+                href="/questionnaire?tab=questions"
+                className="group h-full"
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.34 16.5c-.77.833.192 2.5 1.732 2.5z"
-                />
-              </svg>
+                <div className="rounded-lg bg-slate-400/[0.10] p-7 m-3 mb-0 flex items-start gap-4 hover:bg-slate-400/[0.15] transition-colors h-full">
+                  <div className="w-12 h-12 bg-green-300 rounded-lg flex items-center justify-center mb-4 transition-colors flex-shrink-0">
+                    <Leaf />
+                  </div>
+                  <div className="flex flex-col w-full">
+                    <h3 className="text-lg font-medium text-gray-900 mb-2 leading-tight">
+                      Sustainability Assessment
+                    </h3>
+                    <p className="text-base text-gray-600 leading-relaxed">
+                      Evaluate across 6 sustainability pillars with detailed
+                      scoring.
+                    </p>
+                  </div>
+                </div>
+              </Link>
+
+              {/* Company Information */}
+              <Link href="/questionnaire" className="group h-full">
+                <div className="rounded-lg bg-slate-400/[0.10] p-7 m-3 mb-0 flex items-start gap-4 hover:bg-slate-400/[0.15] transition-colors h-full">
+                  <div className="w-12 h-12 bg-blue-300 rounded-lg flex items-center justify-center mb-4 transition-colors flex-shrink-0">
+                    <Glasses />
+                  </div>
+                  <div className="flex flex-col w-full">
+                    <h3 className="text-lg font-medium text-gray-900 mb-2 leading-tight">
+                      Company Validation
+                    </h3>
+                    <p className="text-base text-gray-600 leading-relaxed">
+                      Complete company profile and sustainability baseline
+                      assessment.
+                    </p>
+                  </div>
+                </div>
+              </Link>
+
+              {/* 360 Leaderboard */}
+              <Link href="/leaderboard" className="group h-full">
+                <div className="rounded-lg bg-slate-400/[0.10] p-7 m-3 mb-0 flex items-start gap-4 hover:bg-slate-400/[0.15] transition-colors h-full">
+                  <div className="w-12 h-12 bg-purple-300 rounded-lg flex items-center justify-center mb-4 transition-colors flex-shrink-0">
+                    <Trophy />
+                  </div>
+                  <div className="flex flex-col w-full">
+                    <h3 className="text-lg font-medium text-gray-900 mb-2 leading-tight">
+                      360 Leaderboard
+                    </h3>
+                    <p className="text-base text-gray-600 leading-relaxed">
+                      Compare sustainability scores across your brand portfolio.
+                    </p>
+                  </div>
+                </div>
+              </Link>
             </div>
-            <h1 className="text-3xl font-bold text-red-900 mb-4">
-              Unable to Load Leaderboard
-            </h1>
-            <p className="text-red-700 text-lg leading-relaxed">
-              We encountered an issue while loading the sustainability data.
-              Please refresh the page or try again later.
-            </p>
+          </div>
+
+          <br />
+
+          <div className="flex flex-row px-2 w-full gap-10">
+            <div className="flex-col flex-1">
+              <div className="flex flex-row justify-between items-center">
+                <h3 className="text-xl font-semibold text-gray-900">
+                  Sustainability Framework
+                </h3>
+                <IvaloLink />
+              </div>
+
+              <div className="flex flex-col py-3 gap-6">
+                <div className="flex items-start gap-3 rounded-lg hover:bg-gray-50 transition-colors">
+                  <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
+                    <Leaf className="w-4 h-4 text-blue-600" />
+                  </div>
+                  <div className="flex flex-col">
+                    <span className="text-lg font-semibold text-gray-900">
+                      Materials & Certifications
+                    </span>
+                    <span className="text-base text-gray-600">
+                      GOTS-certified cotton, recycled materials, plant-based
+                      alternatives, and responsible mulesing-free wool.
+                    </span>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-3 rounded-lg hover:bg-gray-50 transition-colors">
+                  <div className="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center flex-shrink-0">
+                    <Building2 className="w-4 h-4 text-purple-600" />
+                  </div>
+                  <div className="flex flex-col">
+                    <span className="text-lg font-semibold text-gray-900">
+                      Transparent Value Chain
+                    </span>
+                    <span className="text-base text-gray-600">
+                      Production transparency, supplier auditing, code of
+                      conduct, and material origin tracking.
+                    </span>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-3 rounded-lg hover:bg-gray-50 transition-colors">
+                  <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
+                    <Glasses className="w-4 h-4 text-green-600" />
+                  </div>
+                  <div className="flex flex-col">
+                    <span className="text-lg font-semibold text-gray-900">
+                      Design For Circularity
+                    </span>
+                    <span className="text-base text-gray-600">
+                      Durable design, repair services, resale value, and waste
+                      stream control.
+                    </span>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-3 rounded-lg hover:bg-gray-50 transition-colors">
+                  <div className="w-8 h-8 bg-orange-100 rounded-full flex items-center justify-center flex-shrink-0">
+                    <Users className="w-4 h-4 text-orange-600" />
+                  </div>
+                  <div className="flex flex-col">
+                    <span className="text-lg font-semibold text-gray-900">
+                      Inclusivity & Community
+                    </span>
+                    <span className="text-base text-gray-600">
+                      Diversity, equality, inclusion practices, and inclusive
+                      sizing in textiles.
+                    </span>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-3 rounded-lg hover:bg-gray-50 transition-colors">
+                  <div className="w-8 h-8 bg-red-100 rounded-full flex items-center justify-center flex-shrink-0">
+                    <Trophy className="w-4 h-4 text-red-600" />
+                  </div>
+                  <div className="flex flex-col">
+                    <span className="text-lg font-semibold text-gray-900">
+                      Commitment To Sustainability
+                    </span>
+                    <span className="text-base text-gray-600">
+                      Factual targets, public policies, and measurable
+                      sustainability goals.
+                    </span>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-3 rounded-lg hover:bg-gray-50 transition-colors">
+                  <div className="w-8 h-8 bg-teal-100 rounded-full flex items-center justify-center flex-shrink-0">
+                    <ShoppingCart className="w-4 h-4 text-teal-600" />
+                  </div>
+                  <div className="flex flex-col">
+                    <span className="text-lg font-semibold text-gray-900">
+                      Responsible e-Commerce
+                    </span>
+                    <span className="text-base text-gray-600">
+                      Inventory management, sustainable packaging, and slow
+                      carbon-negative logistics.
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex-col flex-1">
+              <div className="flex flex-row justify-between items-center">
+                <h3 className="text-xl font-semibold text-gray-900">
+                  Assessment Tools
+                </h3>
+              </div>
+
+              <div className="flex flex-col py-3 gap-4">
+                <Link href="/questionnaire" className="group h-full">
+                  <div className="flex items-center gap-6">
+                    <div className="w-40 h-40 bg-gray-200/40 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <div className="w-12 h-12 bg-blue-500 rounded-lg flex items-center justify-center">
+                        <span className="text-white font-bold text-base">
+                          <ShieldCheck />
+                        </span>
+                      </div>
+                    </div>
+                    <div className="flex flex-col">
+                      <span className="text-lg font-semibold text-gray-900">
+                        Register Company
+                      </span>
+                      <span className="text-base text-gray-600">
+                        Complete your company details and sustainability
+                        baseline information.
+                      </span>
+                    </div>
+                  </div>
+                </Link>
+
+                <Link
+                  href="/questionnaire?tab=questions"
+                  className="group h-full"
+                >
+                  <div className="flex items-center gap-6">
+                    <div className="w-40 h-40 bg-gray-200/40 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <div className="w-12 h-12 bg-red-500 rounded-lg flex items-center justify-center">
+                        <span className="text-white font-bold text-base">
+                          <Leaf />
+                        </span>
+                      </div>
+                    </div>
+                    <div className="flex flex-col">
+                      <span className="text-lg font-semibold text-gray-900">
+                        Start Assessment
+                      </span>
+                      <span className="text-base text-gray-600">
+                        Begin your sustainability evaluation across all 6
+                        pillars with detailed scoring.
+                      </span>
+                    </div>
+                  </div>
+                </Link>
+
+                <Link href="/leaderboard" className="group h-full">
+                  <div className="flex items-center gap-6">
+                    <div className="w-40 h-40 bg-gray-200/40 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <div className="w-12 h-12 bg-green-500 rounded-lg flex items-center justify-center">
+                        <span className="text-white font-bold text-base">
+                          <Trophy />
+                        </span>
+                      </div>
+                    </div>
+                    <div className="flex flex-col">
+                      <span className="text-lg font-semibold text-gray-900">
+                        View Leaderboard
+                      </span>
+                      <span className="text-base text-gray-600">
+                        Compare sustainability scores across your brand
+                        portfolio and track performance.
+                      </span>
+                    </div>
+                  </div>
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    );
-  }
+    </div>
+  );
 }

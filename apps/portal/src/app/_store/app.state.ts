@@ -1,4 +1,4 @@
-import { House, ListCheck, SquareChevronRight } from "lucide-react";
+import { House, Leaf, Trophy } from "lucide-react";
 import { proxy } from "valtio";
 
 export type PageColour =
@@ -10,44 +10,41 @@ export type PageColour =
 interface Page {
   route: string;
   title: string;
+  shortTitle?: string;
   bg: PageColour;
   Icon: React.ElementType;
+  opacity?: number;
 }
 
 export const pages: Page[] = [
   {
     route: "/",
-    title: "360 Leaderboard",
+    title: "360 Sustainability",
     bg: "blob-green",
     Icon: House,
+    opacity: 0.3,
   },
   {
-    route: "/validate",
-    title: "Self Validation",
+    route: "/questionnaire",
+    title: "Questionnaire for Brand Partners",
+    shortTitle: "Questionnaire",
     bg: "blob-cream",
-    Icon: ListCheck,
+    Icon: Leaf,
   },
   {
-    route: "/prompts",
-    title: "Prompt Explorer",
-    bg: "blob-cream",
-    Icon: SquareChevronRight,
+    route: "/leaderboard",
+    title: "360 Leaderboard",
+    bg: "blob-green",
+    Icon: Trophy,
   },
 ];
 
 interface AppState {
   currentPage: string;
   pageTitle: string;
-
-  setPage: (page: string, title: string) => void;
 }
 
 export const appState = proxy<AppState>({
   currentPage: "home",
   pageTitle: "Ivalo Portal",
-
-  setPage: (page: string, title: string) => {
-    appState.currentPage = page;
-    appState.pageTitle = title;
-  },
 });

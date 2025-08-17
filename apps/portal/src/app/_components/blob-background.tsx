@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { pages } from "../_store/app.state";
+import { pages } from "../_store/app.state.js";
 
 export default function BlobBackground() {
   const pathname = usePathname();
@@ -9,12 +9,13 @@ export default function BlobBackground() {
 
   return (
     <div
-      className={`fixed inset-0 opacity-60 pointer-events-none z-0 ${
+      className={`fixed inset-0 pointer-events-none z-0 ${
         page?.bg ?? "blob-salmon"
       }`}
       style={{
         backgroundColor: "var(--blob-colour)",
         clipPath: "ellipse(40% 70% at 80% 65%)",
+        opacity: page?.opacity ?? 0.6,
       }}
     ></div>
   );

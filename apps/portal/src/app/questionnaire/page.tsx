@@ -1,9 +1,15 @@
 import { connectDb } from "@ivalo/db";
 import { QuestionsRepository } from "../_repositories/questions.repository.js";
-import { Questions } from "./_components/questions.jsx";
+import { Tab } from "../_store/category.state.js";
+import { Questionnaire } from "./_components/questionnaire.js";
 
-export default async function Index() {
+export default async function Index({
+  searchParams,
+}: {
+  searchParams: { tab?: string };
+}) {
   const { db } = await connectDb();
+  const { tab = "company" } = await searchParams;
 
   const repo = new QuestionsRepository(db);
   const categories = await repo.getQuestions();
@@ -27,28 +33,7 @@ export default async function Index() {
 
   return (
     <div className="min-h-screen">
-      <div role="tablist" className="tabs tabs-border">
-        <input
-          aria-label="Questions"
-          type="radio"
-          name="my_tabs_2"
-          className="tab"
-          defaultChecked
-        />
-        <div className="tab-content">
-          <Questions categories={categories} />
-        </div>
-
-        <input
-          type="radio"
-          name="my_tabs_2"
-          className="tab"
-          aria-label="Overview"
-        />
-        <div className="tab-content">
-          <div className="flex p-5">// TODO - Add Results and Charts here</div>
-        </div>
-      </div>
+      <Questionnaire categories={categories} tab={tab as Tab} />
     </div>
   );
 }
