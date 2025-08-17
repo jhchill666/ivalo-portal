@@ -27,7 +27,7 @@ export default function Index() {
         </div>
 
         {/* Main Card Container */}
-        <div className="list bg-white rounded-box overflow-hidden p-2">
+        <div className="list bg-white/60 rounded-box overflow-hidden p-2">
           {/* Main Functionality Cards */}
           <div className="mb-6">
             <div className="grid md:grid-cols-3 gap-2">

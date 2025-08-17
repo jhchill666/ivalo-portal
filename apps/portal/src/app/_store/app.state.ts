@@ -20,7 +20,7 @@ export const pages: Page[] = [
   {
     route: "/",
     title: "360 Sustainability",
-    bg: "blob-green",
+    bg: "blob-salmon",
     Icon: House,
     opacity: 0.3,
   },
@@ -28,14 +28,16 @@ export const pages: Page[] = [
     route: "/questionnaire",
     title: "Questionnaire for Brand Partners",
     shortTitle: "Questionnaire",
-    bg: "blob-cream",
+    bg: "blob-yellow",
     Icon: Leaf,
+    opacity: 0.4,
   },
   {
     route: "/leaderboard",
     title: "360 Leaderboard",
     bg: "blob-green",
     Icon: Trophy,
+    opacity: 0.3,
   },
 ];
 
