@@ -49,7 +49,7 @@ export function CompanyForm() {
               anywhere else as the field links will be broken.
             </span>
           </div>
-          <div className="card bg-base-100 w-full shadow-sm">
+          <div className="card bg-white/80 w-full shadow-sm">
             <div className="card-body flex flex-col !p-3">
               <CompanyDetailsForm />
               <CompanyStatsForm />
